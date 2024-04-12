@@ -6,15 +6,15 @@ namespace Csharpadvanced2024.Repositories
 {
     public class LocationRepo : ILocationRepo
     {
-        private readonly AppDbContext context;
+        private readonly AppDbContext _context;
         public LocationRepo(AppDbContext context)
         {
-            context = context;
+            _context = context;
         }
 
         public IEnumerable<Location> GetAllLocations()
         {
-            return context.Locations.ToList();
+            return _context.Locations.ToList();
         }
     }
 }
