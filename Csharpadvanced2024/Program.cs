@@ -10,8 +10,8 @@ using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
-//builder.Services.AddDbContext<AppDbContext>(options =>
-//    options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbContext") ?? throw new InvalidOperationException("Connection string 'AppDbContext' not found.")));
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbContext") ?? throw new InvalidOperationException("Connection string 'AppDbContext' not found.")));
 
 // Add services to the container.
 
@@ -28,32 +28,36 @@ builder.Services.AddApiVersioning(options =>
     options.ApiVersionReader = new QueryStringApiVersionReader("api-version");
 }).AddMvc();
 
+builder.Services.AddAutoMapper(typeof(Program));
+
+
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("AllowWebApp", builder =>
+    {
+        builder.WithOrigins("https://cloudbnb-df3c1.web.app")
+            .AllowAnyHeader()
+           .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 
-//builder.Services.AddCors(opt =>
-//{
-//    opt.AddPolicy("AllowWebApp", builder =>
-//    {
-//        builder.WithOrigins("https://cloudbnb-df3c1.web.app")
-//            .AllowAnyHeader()
-//            .AllowAnyMethod();
-//    });
-//});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.UseCors(options => options.AllowAnyHeader().AllowAnyOrigin());
+    //app.UseCors(options => options.AllowAnyHeader().AllowAnyOrigin());
 }
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.UseCors("AllowWebApp");
+//app.UseCors("AllowWebApp");
 
 app.MapControllers();
 

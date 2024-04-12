@@ -16,7 +16,10 @@ namespace Csharpadvanced2024.Data
         public DbSet<Image> Images { get; set; }
         public DbSet<Landlord> Landlords { get; set; }
         public DbSet<Location> Locations { get; set; }
-
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+            : base(options)
+        {
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Location>().HasData
