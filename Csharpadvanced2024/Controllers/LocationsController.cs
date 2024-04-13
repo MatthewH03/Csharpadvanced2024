@@ -9,6 +9,7 @@ using Csharpadvanced2024.Data;
 using Csharpadvanced2024.Models;
 using AutoMapper;
 using Csharpadvanced2024.Models.DTOs;
+using System.Threading;
 
 namespace Csharpadvanced2024.Controllers
 {
@@ -36,9 +37,9 @@ namespace Csharpadvanced2024.Controllers
         [Route("")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<IEnumerable<LocationDTO>>> GetLocations()
+        public async Task<ActionResult<IEnumerable<LocationDTO>>> GetLocations(CancellationToken cancellationToken)
         {
-            var locations = await _context.Locations.ToListAsync();
+            var locations = await _context.Locations.ToListAsync(cancellationToken);
             var locationDTOs = _mapper.Map<List<LocationDTO>>(locations);
             return Ok(locationDTOs);
 
@@ -53,9 +54,9 @@ namespace Csharpadvanced2024.Controllers
         [Route("GetAll")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<IEnumerable<Location>>> GetAllLocations()
+        public async Task<ActionResult<IEnumerable<Location>>> GetAllLocations(CancellationToken cancellationToken)
         {
-            return await _context.Locations.ToListAsync();
+            return await _context.Locations.ToListAsync(cancellationToken);
 
         }
     }

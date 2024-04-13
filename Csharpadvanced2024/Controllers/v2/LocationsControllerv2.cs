@@ -31,9 +31,9 @@ namespace Csharpadvanced2024.Controllers.v2
         [Route("")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<IEnumerable<LocationDTOv2>>> GetLocations()
+        public async Task<ActionResult<IEnumerable<LocationDTOv2>>> GetLocations(CancellationToken cancellationToken)
         {
-            var locations = await _context.Locations.ToListAsync();
+            var locations = await _context.Locations.ToListAsync(cancellationToken);
             var locationDTOsv2 = _mapper.Map<List<LocationDTOv2>>(locations);
             return Ok(locationDTOsv2);
         }
