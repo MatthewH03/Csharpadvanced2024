@@ -8,6 +8,8 @@ using System.Reflection;
 using Csharpadvanced2024;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -18,7 +20,23 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen( options =>
+{ 
+    options.SwaggerDoc("1.0", new OpenApiInfo { Title = "Csharpadvanced 2024", Version = "1.0" });
+    options.SwaggerDoc("2.0", new OpenApiInfo { Title = "Csharpadvanced 2024", Version = "2.0" });
+    options.DocInclusionPredicate((docName, apiDesc) =>
+    {
+        if (!apiDesc.TryGetMethodInfo(out MethodInfo method))
+            return false;
+
+        var versions = method.DeclaringType
+                        .GetCustomAttributes(true)
+                        .OfType<ApiVersionAttribute>()
+                        .SelectMany(attr => attr.Versions);
+
+        return versions.Any(v => $"{v}" == docName);
+    });
+});
 
 builder.Services.AddApiVersioning(options =>
 {
@@ -49,15 +67,19 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
-    //app.UseCors(options => options.AllowAnyHeader().AllowAnyOrigin());
+    app.UseSwaggerUI(config =>
+    {
+        config.SwaggerEndpoint("/swagger/1.0/swagger.json", "Csharpadvanced 2024 API v1");
+        config.SwaggerEndpoint("/swagger/2.0/swagger.json", "Csharpadvanced 2024 API v2");
+    });
+    app.UseCors(options => options.AllowAnyHeader().AllowAnyOrigin());
 }
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-//app.UseCors("AllowWebApp");
+app.UseCors("AllowWebApp");
 
 app.MapControllers();
 

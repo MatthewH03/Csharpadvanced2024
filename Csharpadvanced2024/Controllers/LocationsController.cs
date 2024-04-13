@@ -31,8 +31,8 @@ namespace Csharpadvanced2024.Controllers
         public async Task<ActionResult<IEnumerable<LocationDTO>>> GetLocations()
         {
             var locations = await _context.Locations.ToListAsync();
-            var locationDtos = _mapper.Map<LocationDTO>(locations);
-            return Ok(locationDtos);
+            var locationDTOs = _mapper.Map<List<LocationDTO>>(locations);
+            return Ok(locationDTOs);
 
         }
         // GET: api/Locations api/Locations/GetAll
