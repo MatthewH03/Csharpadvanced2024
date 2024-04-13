@@ -20,8 +20,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen( options =>
-{ 
+builder.Services.AddSwaggerGen(options =>
+{
     options.SwaggerDoc("1.0", new OpenApiInfo { Title = "Csharpadvanced 2024", Version = "1.0" });
     options.SwaggerDoc("2.0", new OpenApiInfo { Title = "Csharpadvanced 2024", Version = "2.0" });
     options.DocInclusionPredicate((docName, apiDesc) =>
@@ -36,6 +36,11 @@ builder.Services.AddSwaggerGen( options =>
 
         return versions.Any(v => $"{v}" == docName);
     });
+
+    // using System.Reflection;
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+    options.OperationFilter<AddApiVersionQueryParamOperationFilter>();
 });
 
 builder.Services.AddApiVersioning(options =>

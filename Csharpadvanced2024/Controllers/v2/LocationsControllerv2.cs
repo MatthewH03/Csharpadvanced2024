@@ -22,8 +22,15 @@ namespace Csharpadvanced2024.Controllers.v2
         }
 
         // GET: api/Locations
+        /// <summary>
+        /// Deze endpoint haalt de locaties op volgens DTO v2.
+        /// </summary>
+        /// /// <response code="200">Weergeeft bestaande locatie(s).</response>
+        /// <response code="404">Geen locatie(s) gevonden.</response>
         [HttpGet]
         [Route("")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<LocationDTOv2>>> GetLocations()
         {
             var locations = await _context.Locations.ToListAsync();
