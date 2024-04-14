@@ -9,6 +9,8 @@ using Csharpadvanced2024;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Csharpadvanced2024.Services;
+using Csharpadvanced2024.Repositories;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +20,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Add services to the container.
 
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -63,7 +66,8 @@ builder.Services.AddCors(opt =>
            .AllowAnyMethod();
     });
 });
-
+builder.Services.AddScoped<ISearchService, SearchService>();
+builder.Services.AddScoped<ILocationRepo, LocationRepo>();
 var app = builder.Build();
 
 
