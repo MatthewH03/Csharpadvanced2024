@@ -68,6 +68,7 @@ builder.Services.AddCors(opt =>
 });
 builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Services.AddScoped<ILocationRepo, LocationRepo>();
+builder.Services.AddScoped<IReservationService, ReservationService>();
 var app = builder.Build();
 
 

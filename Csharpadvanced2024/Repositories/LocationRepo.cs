@@ -20,7 +20,6 @@ namespace Csharpadvanced2024.Repositories
 
         public Task<IEnumerable<Location>> SearchLocationsAsync(SearchRequestDTO searchRequestDTO, CancellationToken cancellationToken)
         {
-            // Geen zoekcriteria, retourneer gewoon alle locaties
             return Task.FromResult<IEnumerable<Location>>(_context.Locations.ToList());
         }
 
@@ -32,6 +31,14 @@ namespace Csharpadvanced2024.Repositories
         {
             return await _context.Locations.FirstOrDefaultAsync(l => l.Id == id, cancellationToken);
         }
+        public async Task<List<DateTime>> GetUnavailableDatesAsync(int locationId, CancellationToken cancellationToken)
+        {
+            var unavailableDates = await _context.Locations
+                .Where(l => l.Id == locationId)
+                .SelectMany(l => l.Reservations.Select(r => r.StartDate))
+                .ToListAsync(cancellationToken);
 
+            return unavailableDates;
+        }
     }
 }

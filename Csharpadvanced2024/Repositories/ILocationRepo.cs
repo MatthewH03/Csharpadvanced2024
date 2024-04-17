@@ -9,5 +9,6 @@ namespace Csharpadvanced2024.Repositories
         Task<IEnumerable<Location>> SearchLocationsAsync(SearchRequestDTO searchRequestDto, CancellationToken cancellationToken);
         Task<int> GetMaxPriceAsync(CancellationToken cancellationToken);
         Task<Location> GetDetailsLocationsAsync(int id, CancellationToken cancellationToken);
+        Task<List<DateTime>> GetUnavailableDatesAsync(int id,  CancellationToken cancellationToken);
     }
 }

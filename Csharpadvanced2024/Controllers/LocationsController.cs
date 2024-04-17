@@ -120,5 +120,24 @@ namespace Csharpadvanced2024.Controllers
             var locationDTO = _mapper.Map<DetailLocationDTO>(location);
             return Ok(locationDTO);
         }
+
+        // GET: api/Locations/UnAvailableDates/{locationId}
+        /// <summary>
+        /// Deze endpoint haalt de unavailable dates op op locationId.
+        /// </summary>
+        /// /// <response code="200">Weergeeft bestaande locatie op id.</response>
+        /// <response code="404">Geen locatie gevonden op het gegeven id.</response>
+        [HttpGet]
+        [Route("UnAvailableDates/{locationId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<UnavailableDateDTO>> GetUnavailableDates(int locationId, CancellationToken cancellationToken)
+        {
+            var unavailableDates = await _locationRepo.GetUnavailableDatesAsync(locationId, cancellationToken);
+            var unavailableDatesDTO = new UnavailableDateDTO
+              {
+                  UnavailableDates = unavailableDates
+              };
+            return Ok(unavailableDates);
+        }
     }
 }
