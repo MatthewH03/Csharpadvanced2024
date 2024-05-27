@@ -22,8 +22,67 @@ namespace Csharpadvanced2024.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Landlord>().HasData
+                (
+                    new Landlord
+                    {
+                        Id = 1,
+                        FirstName = "John",
+                        LastName = "Doe",
+                        Age = 55,
+                    },
+
+                    new Landlord
+                    {
+                        Id = 2,
+                        FirstName = "Henk",
+                        LastName = "Pieters",
+                        Age = 40,
+                    },
+
+                    new Landlord
+                    {
+                        Id = 3,
+                        FirstName = "Jan",
+                        LastName = "Hollands",
+                        Age = 36,
+                    }
+                );
+
             modelBuilder.Entity<Location>().HasData
                 (
+                    new Location
+                    {
+                        Id = 1,
+                        Title = "Locatie nr. 1",
+                        Subtitle = "Mooie locatie",
+                        Description = "Dit is de eerste locatie",
+                        Rooms = 5,
+                        NumberOfGuests = 10,
+                        PricePerDay = 300,
+                        Type = (Location.LocationType)1,
+                        Features = 0,
+                        Images = null,
+                        Landlord = null,
+                        Reservations = null
+                    },
+
+                    new Location
+                    {
+                        Id = 2,
+                        Title = "Locatie nr. 2",
+                        Subtitle = "Mooie locatie",
+                        Description = "Dit is de tweede locatie",
+                        Rooms = 5,
+                        NumberOfGuests = 10,
+                        PricePerDay = 300,
+                        Type = (Location.LocationType)1,
+                        Features = 0,
+                        Images = null,
+                        Landlord = null,
+                        Reservations = null
+                    },
+
                     new Location
                     {
                         Id = 3,
@@ -49,6 +108,102 @@ namespace Csharpadvanced2024.Data
                         NumberOfGuests = 4,
                         PricePerDay = 400,
                         Type = (Location.LocationType)0,
+                        Features = 0,
+                        Images = null,
+                        Landlord = null,
+                        Reservations = null
+                    },
+
+                    new Location
+                    {
+                        Id = 5,
+                        Title = "Locatie nr. 5",
+                        Subtitle = "Mooie locatie",
+                        Description = "Dit is de vijfde locatie",
+                        Rooms = 5,
+                        NumberOfGuests = 10,
+                        PricePerDay = 300,
+                        Type = (Location.LocationType)1,
+                        Features = 0,
+                        Images = null,
+                        Landlord = null,
+                        Reservations = null
+                    },
+
+                    new Location
+                    {
+                        Id = 6,
+                        Title = "Locatie nr. 6",
+                        Subtitle = "Mooie locatie",
+                        Description = "Dit is de zesde locatie",
+                        Rooms = 5,
+                        NumberOfGuests = 10,
+                        PricePerDay = 300,
+                        Type = (Location.LocationType)1,
+                        Features = 0,
+                        Images = null,
+                        Landlord = null,
+                        Reservations = null
+                    },
+
+                    new Location
+                    {
+                        Id = 7,
+                        Title = "Locatie nr. 7",
+                        Subtitle = "Mooie locatie",
+                        Description = "Dit is de zevende locatie",
+                        Rooms = 5,
+                        NumberOfGuests = 10,
+                        PricePerDay = 300,
+                        Type = (Location.LocationType)1,
+                        Features = 0,
+                        Images = null,
+                        Landlord = null,
+                        Reservations = null
+                    },
+
+                    new Location
+                    {
+                        Id = 8,
+                        Title = "Locatie nr. 8",
+                        Subtitle = "Mooie locatie",
+                        Description = "Dit is de achste locatie",
+                        Rooms = 5,
+                        NumberOfGuests = 10,
+                        PricePerDay = 300,
+                        Type = (Location.LocationType)1,
+                        Features = 0,
+                        Images = null,
+                        Landlord = null,
+                        Reservations = null
+                    },
+
+                    new Location
+                    {
+                        Id = 9,
+                        Title = "Locatie nr. 9",
+                        Subtitle = "Mooie locatie",
+                        Description = "Dit is de negende locatie",
+                        Rooms = 5,
+                        NumberOfGuests = 10,
+                        PricePerDay = 300,
+                        Type = (Location.LocationType)1,
+                        Features = 0,
+                        Images = null,
+                        Landlord = null,
+                        Reservations = null
+                    },
+
+                    new Location
+                    {
+                        Id = 10,
+                        Title = "Locatie nr. 10",
+                        Subtitle = "Mooie locatie",
+                        Description = "Dit is de tiende locatie",
+                        Rooms = 5,
+                        NumberOfGuests = 10,
+                        PricePerDay = 300,
+                        Type = (Location.LocationType)1,
                         Features = 0,
                         Images = null,
                         Landlord = null,

@@ -4,6 +4,7 @@ using Csharpadvanced2024.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Csharpadvanced2024.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240527185525_More locations")]
+    partial class Morelocations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,9 +60,6 @@ namespace Csharpadvanced2024.Migrations
                     b.Property<bool>("IsCover")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LandlordId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("LocationId")
                         .HasColumnType("int");
 
@@ -69,8 +68,6 @@ namespace Csharpadvanced2024.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LandlordId");
 
                     b.HasIndex("LocationId");
 
@@ -88,6 +85,9 @@ namespace Csharpadvanced2024.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
+                    b.Property<int>("AvatarId")
+                        .HasColumnType("int");
+
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -98,30 +98,9 @@ namespace Csharpadvanced2024.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Landlords");
+                    b.HasIndex("AvatarId");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Age = 55,
-                            FirstName = "John",
-                            LastName = "Doe"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Age = 40,
-                            FirstName = "Henk",
-                            LastName = "Pieters"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Age = 36,
-                            FirstName = "Jan",
-                            LastName = "Hollands"
-                        });
+                    b.ToTable("Landlords");
                 });
 
             modelBuilder.Entity("Csharpadvanced2024.Models.Location", b =>
@@ -274,14 +253,14 @@ namespace Csharpadvanced2024.Migrations
                         },
                         new
                         {
-                            Id = 10,
+                            Id = 19,
                             Description = "Dit is de tiende locatie",
                             Features = 0,
                             NumberOfGuests = 10,
                             PricePerDay = 300f,
                             Rooms = 5,
                             Subtitle = "Mooie locatie",
-                            Title = "Locatie nr. 10",
+                            Title = "Locatie nr. 19",
                             Type = 1
                         });
                 });
@@ -335,13 +314,20 @@ namespace Csharpadvanced2024.Migrations
 
             modelBuilder.Entity("Csharpadvanced2024.Models.Image", b =>
                 {
-                    b.HasOne("Csharpadvanced2024.Models.Landlord", null)
-                        .WithMany("Avatar")
-                        .HasForeignKey("LandlordId");
-
                     b.HasOne("Csharpadvanced2024.Models.Location", null)
                         .WithMany("Images")
                         .HasForeignKey("LocationId");
+                });
+
+            modelBuilder.Entity("Csharpadvanced2024.Models.Landlord", b =>
+                {
+                    b.HasOne("Csharpadvanced2024.Models.Image", "Avatar")
+                        .WithMany()
+                        .HasForeignKey("AvatarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Avatar");
                 });
 
             modelBuilder.Entity("Csharpadvanced2024.Models.Reservation", b =>
@@ -377,11 +363,6 @@ namespace Csharpadvanced2024.Migrations
             modelBuilder.Entity("Csharpadvanced2024.Models.Customer", b =>
                 {
                     b.Navigation("Reservations");
-                });
-
-            modelBuilder.Entity("Csharpadvanced2024.Models.Landlord", b =>
-                {
-                    b.Navigation("Avatar");
                 });
 
             modelBuilder.Entity("Csharpadvanced2024.Models.Location", b =>
