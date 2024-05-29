@@ -22,6 +22,26 @@ namespace Csharpadvanced2024.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Image>().HasData
+                (
+                    new Image
+                    {
+                        Id = 1,
+                        Url = "https://d7hftxdivxxvm.cloudfront.net/?height=630&quality=80&resize_to=fill&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2F2P6t_Yt6dF0TNN76dlp-_Q%252F3417757448_4a6bdf36ce_o.jpg&width=1200",
+                        IsCover = true,
+                        LocationId = 1
+                    },
+
+                    new Image
+                    {
+                        Id = 2,
+                        Url = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/2011_Berat%2C_Cerkiew_%C5%9Bw._Teodora.JPG/1024px-2011_Berat%2C_Cerkiew_%C5%9Bw._Teodora.JPG",
+                        IsCover = true,
+                        LocationId = 1
+                    }
+                );
+
+
             modelBuilder.Entity<Landlord>().HasData
                 (
                     new Landlord
@@ -60,7 +80,7 @@ namespace Csharpadvanced2024.Data
                         Rooms = 5,
                         NumberOfGuests = 10,
                         PricePerDay = 300,
-                        Type = (Location.LocationType)1,
+                        Type = (Location.LocationType)0,
                         Features = 0,
                         Images = null,
                         Landlord = null,
@@ -76,7 +96,7 @@ namespace Csharpadvanced2024.Data
                         Rooms = 5,
                         NumberOfGuests = 10,
                         PricePerDay = 300,
-                        Type = (Location.LocationType)1,
+                        Type = (Location.LocationType)2,
                         Features = 0,
                         Images = null,
                         Landlord = null,
@@ -123,7 +143,7 @@ namespace Csharpadvanced2024.Data
                         Rooms = 5,
                         NumberOfGuests = 10,
                         PricePerDay = 300,
-                        Type = (Location.LocationType)1,
+                        Type = (Location.LocationType)3,
                         Features = 0,
                         Images = null,
                         Landlord = null,
@@ -139,7 +159,7 @@ namespace Csharpadvanced2024.Data
                         Rooms = 5,
                         NumberOfGuests = 10,
                         PricePerDay = 300,
-                        Type = (Location.LocationType)1,
+                        Type = (Location.LocationType)4,
                         Features = 0,
                         Images = null,
                         Landlord = null,
@@ -155,7 +175,7 @@ namespace Csharpadvanced2024.Data
                         Rooms = 5,
                         NumberOfGuests = 10,
                         PricePerDay = 300,
-                        Type = (Location.LocationType)1,
+                        Type = (Location.LocationType)5,
                         Features = 0,
                         Images = null,
                         Landlord = null,
@@ -173,7 +193,6 @@ namespace Csharpadvanced2024.Data
                         PricePerDay = 300,
                         Type = (Location.LocationType)1,
                         Features = 0,
-                        Images = null,
                         Landlord = null,
                         Reservations = null
                     },

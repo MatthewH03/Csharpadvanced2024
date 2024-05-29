@@ -46,7 +46,7 @@ namespace Csharpadvanced2024.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<LocationDTO>>> GetLocations(CancellationToken cancellationToken)
         {
-            var locations = await _context.Locations.ToListAsync(cancellationToken);
+            var locations = await _context.Locations.Include(locations => locations.Images).ToListAsync(cancellationToken);
             var locationDTOs = _mapper.Map<List<LocationDTO>>(locations);
             return Ok(locationDTOs);
 

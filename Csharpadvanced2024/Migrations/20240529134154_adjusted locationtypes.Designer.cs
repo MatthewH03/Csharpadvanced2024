@@ -4,6 +4,7 @@ using Csharpadvanced2024.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Csharpadvanced2024.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240529134154_adjusted locationtypes")]
+    partial class adjustedlocationtypes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,7 +63,7 @@ namespace Csharpadvanced2024.Migrations
                     b.Property<int?>("LandlordId")
                         .HasColumnType("int");
 
-                    b.Property<int>("LocationId")
+                    b.Property<int?>("LocationId")
                         .HasColumnType("int");
 
                     b.Property<string>("Url")
@@ -75,22 +77,6 @@ namespace Csharpadvanced2024.Migrations
                     b.HasIndex("LocationId");
 
                     b.ToTable("Images");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            IsCover = true,
-                            LocationId = 1,
-                            Url = "https://d7hftxdivxxvm.cloudfront.net/?height=630&quality=80&resize_to=fill&src=https%3A%2F%2Fartsy-media-uploads.s3.amazonaws.com%2F2P6t_Yt6dF0TNN76dlp-_Q%252F3417757448_4a6bdf36ce_o.jpg&width=1200"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            IsCover = true,
-                            LocationId = 1,
-                            Url = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/2011_Berat%2C_Cerkiew_%C5%9Bw._Teodora.JPG/1024px-2011_Berat%2C_Cerkiew_%C5%9Bw._Teodora.JPG"
-                        });
                 });
 
             modelBuilder.Entity("Csharpadvanced2024.Models.Landlord", b =>
@@ -355,13 +341,9 @@ namespace Csharpadvanced2024.Migrations
                         .WithMany("Avatar")
                         .HasForeignKey("LandlordId");
 
-                    b.HasOne("Csharpadvanced2024.Models.Location", "Location")
+                    b.HasOne("Csharpadvanced2024.Models.Location", null)
                         .WithMany("Images")
-                        .HasForeignKey("LocationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Location");
+                        .HasForeignKey("LocationId");
                 });
 
             modelBuilder.Entity("Csharpadvanced2024.Models.Reservation", b =>
