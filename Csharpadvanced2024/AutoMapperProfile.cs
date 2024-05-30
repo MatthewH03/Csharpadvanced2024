@@ -9,8 +9,7 @@ namespace Csharpadvanced2024
     {
         public AutoMapperProfile()
         {
-            CreateMap<Location, LocationDTO>()
-                .ForMember(dest => dest.ImageUrls, opt => opt.MapFrom(src => src.Images.Select(img => img.Url).ToList()));
+            CreateMap<Location, LocationDTO>();
             CreateMap<Landlord, LandlordDTO>();
             CreateMap<Location, LocationDTOv2>();
             CreateMap<Location, SearchRequestDTO>()
@@ -20,7 +19,6 @@ namespace Csharpadvanced2024
                 .ForMember(dest => dest.MinPrice, opt => opt.Ignore())
                 .ForMember(dest => dest.MaxPrice, opt => opt.Ignore());
             CreateMap<Location, DetailLocationDTO>();
-            CreateMap<Image, ImageDTO>();
         }
     }
 }
