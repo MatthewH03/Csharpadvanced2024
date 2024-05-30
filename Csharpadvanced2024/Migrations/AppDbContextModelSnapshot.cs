@@ -58,9 +58,6 @@ namespace Csharpadvanced2024.Migrations
                     b.Property<bool>("IsCover")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("LandlordId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("LocationId")
                         .HasColumnType("int");
 
@@ -69,8 +66,6 @@ namespace Csharpadvanced2024.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LandlordId");
 
                     b.HasIndex("LocationId");
 
@@ -99,29 +94,6 @@ namespace Csharpadvanced2024.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Landlords");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Age = 55,
-                            FirstName = "John",
-                            LastName = "Doe"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Age = 40,
-                            FirstName = "Henk",
-                            LastName = "Pieters"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Age = 36,
-                            FirstName = "Jan",
-                            LastName = "Hollands"
-                        });
                 });
 
             modelBuilder.Entity("Csharpadvanced2024.Models.Location", b =>
@@ -166,30 +138,6 @@ namespace Csharpadvanced2024.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
-                            Description = "Dit is de eerste locatie",
-                            Features = 0,
-                            NumberOfGuests = 10,
-                            PricePerDay = 300f,
-                            Rooms = 5,
-                            Subtitle = "Mooie locatie",
-                            Title = "Locatie nr. 1",
-                            Type = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Dit is de tweede locatie",
-                            Features = 0,
-                            NumberOfGuests = 10,
-                            PricePerDay = 300f,
-                            Rooms = 5,
-                            Subtitle = "Mooie locatie",
-                            Title = "Locatie nr. 2",
-                            Type = 1
-                        },
-                        new
-                        {
                             Id = 3,
                             Description = "De camping ligt verscholen achter de boerderij in de polder. Op fietsafstand (5 minuten) liggen het dorpje Nieuwvliet, de zee, het strand, het bos van Erasmus en het natuurgebied de Knokkert.",
                             Features = 0,
@@ -211,78 +159,6 @@ namespace Csharpadvanced2024.Migrations
                             Subtitle = "Te gek uitzicht",
                             Title = "Frankie's Penthouse",
                             Type = 0
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Description = "Dit is de vijfde locatie",
-                            Features = 0,
-                            NumberOfGuests = 10,
-                            PricePerDay = 300f,
-                            Rooms = 5,
-                            Subtitle = "Mooie locatie",
-                            Title = "Locatie nr. 5",
-                            Type = 1
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Description = "Dit is de zesde locatie",
-                            Features = 0,
-                            NumberOfGuests = 10,
-                            PricePerDay = 300f,
-                            Rooms = 5,
-                            Subtitle = "Mooie locatie",
-                            Title = "Locatie nr. 6",
-                            Type = 1
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Description = "Dit is de zevende locatie",
-                            Features = 0,
-                            NumberOfGuests = 10,
-                            PricePerDay = 300f,
-                            Rooms = 5,
-                            Subtitle = "Mooie locatie",
-                            Title = "Locatie nr. 7",
-                            Type = 1
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Description = "Dit is de achste locatie",
-                            Features = 0,
-                            NumberOfGuests = 10,
-                            PricePerDay = 300f,
-                            Rooms = 5,
-                            Subtitle = "Mooie locatie",
-                            Title = "Locatie nr. 8",
-                            Type = 1
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Description = "Dit is de negende locatie",
-                            Features = 0,
-                            NumberOfGuests = 10,
-                            PricePerDay = 300f,
-                            Rooms = 5,
-                            Subtitle = "Mooie locatie",
-                            Title = "Locatie nr. 9",
-                            Type = 1
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Description = "Dit is de tiende locatie",
-                            Features = 0,
-                            NumberOfGuests = 10,
-                            PricePerDay = 300f,
-                            Rooms = 5,
-                            Subtitle = "Mooie locatie",
-                            Title = "Locatie nr. 10",
-                            Type = 1
                         });
                 });
 
@@ -335,10 +211,6 @@ namespace Csharpadvanced2024.Migrations
 
             modelBuilder.Entity("Csharpadvanced2024.Models.Image", b =>
                 {
-                    b.HasOne("Csharpadvanced2024.Models.Landlord", null)
-                        .WithMany("Avatar")
-                        .HasForeignKey("LandlordId");
-
                     b.HasOne("Csharpadvanced2024.Models.Location", null)
                         .WithMany("Images")
                         .HasForeignKey("LocationId");
@@ -377,11 +249,6 @@ namespace Csharpadvanced2024.Migrations
             modelBuilder.Entity("Csharpadvanced2024.Models.Customer", b =>
                 {
                     b.Navigation("Reservations");
-                });
-
-            modelBuilder.Entity("Csharpadvanced2024.Models.Landlord", b =>
-                {
-                    b.Navigation("Avatar");
                 });
 
             modelBuilder.Entity("Csharpadvanced2024.Models.Location", b =>

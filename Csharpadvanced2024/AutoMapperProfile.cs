@@ -10,7 +10,6 @@ namespace Csharpadvanced2024
         public AutoMapperProfile()
         {
             CreateMap<Location, LocationDTO>();
-            CreateMap<Landlord, LandlordDTO>();
             CreateMap<Location, LocationDTOv2>();
             CreateMap<Location, SearchRequestDTO>()
                 .ForMember(dest => dest.Features, opt => opt.MapFrom(src => src.Features))
